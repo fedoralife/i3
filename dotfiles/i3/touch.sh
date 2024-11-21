@@ -43,34 +43,6 @@ declare -A packages=(
 )
 
 # Iterate through each package and install if necessary
-package_installer(){
 for package in "${!packages[@]}"; do
     install_package "$package" "${packages[$package]}"
 done
-echo "package installation succhessfull"
-return 0
-}
-option() {
-    read -p "Do you want to set the configuration files in their respective places (Default is Y): " option
-    option=${option:-Y}  # Set default to "Y" if no input is provided
-    
-    if [[ "$option" == "y" || "$option" == "Y" ]]; then
-         cp -r ./dotfiles/* "$HOME/.config/"
-	cp -r ./images/* "$HOME/Pictures" && \
-        echo "Files successfully copied!" && return 0
-    else
-        echo "Task terminated"
-        return 1
-    fi
-}
-
-main() {
-	echo "Welome"
-	echo "This scripts allows you to setup my configuration and dev enviroment"
-	package_installer
-	option
-}
-
-
-
-main
